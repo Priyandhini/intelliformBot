@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>openaibot.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+openaibot.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">openai</span>
+
+<span class="s2"># Set your OpenAI GPT API key</span>
+<span class="s1">openai.api_key = </span><span class="s3">'YOUR_API_KEY'</span>
+
+<span class="s0">def </span><span class="s1">generate_response(prompt):</span>
+    <span class="s1">response = openai.ChatCompletion.create(</span>
+        <span class="s1">model=</span><span class="s3">&quot;gpt-3.5-turbo&quot;</span><span class="s0">,</span>
+        <span class="s1">messages=[</span>
+            <span class="s1">{</span><span class="s3">&quot;role&quot;</span><span class="s1">: </span><span class="s3">&quot;system&quot;</span><span class="s0">, </span><span class="s3">&quot;content&quot;</span><span class="s1">: </span><span class="s3">&quot;You are a helpful assistant.&quot;</span><span class="s1">}</span><span class="s0">,</span>
+            <span class="s1">{</span><span class="s3">&quot;role&quot;</span><span class="s1">: </span><span class="s3">&quot;user&quot;</span><span class="s0">, </span><span class="s3">&quot;content&quot;</span><span class="s1">: prompt}</span><span class="s0">,</span>
+        <span class="s1">]</span><span class="s0">,</span>
+    <span class="s1">)</span>
+    <span class="s0">return </span><span class="s1">response[</span><span class="s3">'choices'</span><span class="s1">][</span><span class="s4">0</span><span class="s1">][</span><span class="s3">'message'</span><span class="s1">][</span><span class="s3">'content'</span><span class="s1">]</span>
+
+<span class="s0">def </span><span class="s1">form_bot():</span>
+    <span class="s1">print(</span><span class="s3">&quot;Welcome! I'm here to help you complete your form.&quot;</span><span class="s1">)</span>
+
+    <span class="s0">while True</span><span class="s1">:</span>
+        <span class="s1">user_input = input(</span><span class="s3">&quot;You: &quot;</span><span class="s1">)</span>
+        <span class="s0">if </span><span class="s1">user_input.lower() == </span><span class="s3">'exit'</span><span class="s1">:</span>
+            <span class="s1">print(</span><span class="s3">&quot;Exiting the form bot. Goodbye!&quot;</span><span class="s1">)</span>
+            <span class="s0">break</span>
+
+        <span class="s2"># Add user input to the conversation history</span>
+        <span class="s1">prompt = </span><span class="s3">f&quot;User: </span><span class="s0">{</span><span class="s1">user_input</span><span class="s0">}</span><span class="s3">&quot;</span>
+        <span class="s1">bot_response = generate_response(prompt)</span>
+
+        <span class="s2"># Extract and print the bot's response</span>
+        <span class="s1">print(</span><span class="s3">&quot;Bot:&quot;</span><span class="s0">, </span><span class="s1">bot_response)</span>
+
+        <span class="s2"># Check if the form is completed</span>
+        <span class="s0">if </span><span class="s3">&quot;Thank you for completing the form!&quot; </span><span class="s0">in </span><span class="s1">bot_response:</span>
+            <span class="s1">print(</span><span class="s3">&quot;Form completed successfully. Exiting the form bot. Goodbye!&quot;</span><span class="s1">)</span>
+            <span class="s0">break</span>
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s3">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s1">form_bot()</span>
+</pre>
+</body>
+</html>
