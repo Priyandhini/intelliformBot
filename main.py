@@ -1,7 +1,7 @@
 import openai
 
-# Set your OpenAI GPT API key
-openai.api_key = 'YOUR_API_KEY'
+
+openai.api_key = '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'
 
 def generate_response(prompt):
     response = openai.ChatCompletion.create(
